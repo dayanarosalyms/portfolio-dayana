@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio de Certificações</title>
+  <style>
+    /* Corpo e fundo dinâmico */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: 2s ease;
+      background: linear-gradient(to right,#ff1e00c5, #634f1a,#092044 );
+    }
+
+    /* Menu fixo no topo */
+    nav.menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(10, 10, 30, 0.9);
+      z-index: 1000;
+      padding: 10px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    nav.menu ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav.menu li {
+      margin: 0 20px;
+    }
+
+    nav.menu a {
+      color:whitesmoke;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav.menu a:hover {
+      color:  #00FFF7;
+    }
+
+    /* Header com parallax */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 100vh;
+      padding: 0 20px;
+      font-size: 3em;
+      font-style: italic;
+      font-weight: bold;
+      color: white;
+      font-family: unset;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+      position: relative;
+      z-index: 1;
+      background: url('IMAGENS/cabeca.jpg') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed; /* parallax */
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: -1;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    main p.especial {
+      font-weight: lighter;
+    }
+
+    section {
+      width: 100%;
+      max-width: 1000px;
+      margin-bottom: 60px;
+      text-align: justify;
+      line-height: 1.6em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Certificados */
+    .certificado-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+
+    .certificado-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .certificado img {
+      width: 500px;
+      border-radius: 10px;
+      margin: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .certificado img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+    }
+
+    .certificado a {
+      position: relative;
+      display: inline-block;
+    }
+
+    .certificado a::after {
+      content: "Abrir PDF";
+      position: absolute;
+      bottom: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 123, 255, 0.8);
+      color: white;
+      font-size: 0.9em;
+      padding: 5px 10px;
+      border-radius: 6px;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+    }
+
+    .certificado a:hover::after {
+      opacity: 1;
+      transform: translate(-50%, -5px);
+    }
+
+    .certificado-card p {
+      flex: 1;
+      font-size: 1.1em;
+      margin: 20px;
+      text-align: justify;
+      line-height: 1.5em;
+    }
+
+    /* Contatos */
+    .contatos {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 1.1em;
+    }
+
+    .contatos a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contatos a:hover {
+      color: #06f7ff;
+    }
+
+    .contatos a::before {
+      content: "•";
+      color: #00FFF7;
+      margin-right: 10px;
+    }
+
+    /* Estilo específico para a imagem do currículo */
+    #curriculo img {
+      width: 250px;       /* tamanho menor */
+      height: auto;       /* mantém proporção */
+      display: block;
+      margin: 20px auto;  /* centraliza */
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    #curriculo h2 {
+      text-align: center;  
+    }
+
+    #curriculo p {
+        text-align: center;
+    }
+    #curriculo img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Menu -->
+  <nav class="menu">
+    <ul>
+      <li><a href="#sobre">Progresso</a></li>
+      <li><a href="#experiencias">Experiências</a></li>
+      <li><a href="#contatos">Contatos</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    Olá! Bem-vindo(a) ao meu portfólio de certificações!
+  </header>
+
+  <main id="certificados">
+    <p class="especial">
+      Eu sou a Dayana, estudante do 3º P. de ADS, em processo de transição de carreira. 
+      Fiz esse portfólio para deixar de forma organizada e clara meu progresso na área de tecnologia.
+    </p>
+
+    <!-- Certificados -->
+    <div class="certificado-card">
+      <div class="certificado">
+        <a href="Arquivos/Validação Certificado_PYTHON_HASHTAG.pdf" target="_blank">
+          <img src="IMAGENS/certificado_hashtag.png" alt="Certificado Hashtag">
+        </a>
+      </div>
+      <p> Certificação da Jornada Python na Hashtag Treinamentos, com projetos práticos de Automação, Inteligência Artificial e Dados com Python! Nesse curso aprendi o quanto a linguagem é versátil e adaptável para diferentes contextos do mercado. Utilizamos bibliotecas robustas como Pandas, Numpy, PyAutoGui e BeautifulSoup. Também desenvolvemos um projeto de automação de cadastro de produtos e uma análise completa de um banco de dados fictício com o objetivo de otimizar processos e entender informações importantes para tomada de decisão. </p>
+    </div>
+
+    <div class="certificado-card">
+      <div class="certificado">
+        <a href="Arquivos/certificado_Huawei.pdf" target="_blank">
+          <img src="IMAGENS/certificado_huawei.png" alt="Certificado Huawei">
+        </a>
+      </div>
+      <p> Certificação Huawei Básica, focada nos primeiros fundamentos da linguagem com o professor Sérgio Luiz Banin. Esse curso foi um passo importante no meu desenvolvimento técnico e compreensão de lógica de programação. Nele pude iniciar meus primeiros projetos em Python. Não foi o meu primeiro contato com a linguagem porém reforçou muito os conceitos básicos de programação em Python. </p>
+    </div>
+
+    <div class="certificado-card">
+      <div class="certificado">
+        <a href="Arquivos/certificado_Huawei_intermediario.pdf" target="_blank">
+          <img src="IMAGENS/certificado_huawei_intermediario.png" alt="Certificado Huawei">
+        </a>
+      </div>
+      <p> Certificação Huawei Python Intermediário, lecionado pelo professor Sérgio Luiz Banin. Nesse curso aprendi os conceitos mais usados da linguagem como dicionários, estruturas de dados, SCRUM, list comprehension. O curso me possibilitou além de reforçar os conceitos básicos aprendido no módulo anterior, colocar em prática de forma mais abrangente as possibilidades em Python e praticar inúmeros exercícios para fixar o conhecimento. Nesse módulo também iniciei o conceito de POO, utilizando boas práticas de programação. </p>
+    </div>
+
+    <div class="certificado-card">
+      <div class="certificado">
+        <a href="Arquivos/Certificado POO.pdf" target="_blank">
+          <img src="IMAGENS/certificado_poo.png" alt="Certificado Huawei">
+        </a>
+      </div>
+      <p> Certificação Introdução à Programação Orientada a Objetos (POO). Nesse curso consegui compreender os pilares da POO e entender o quanto ela é viável e estratégica quando se trata de desenvolvimento. Esse curso me ajudou a mudar minha visão sobre programação me fazendo entender o quanto um código limpo e bem estruturado muda toda a dinâmica. </p>
+    </div>
+
+    <!-- Sobre Mim -->
+    <section id="sobre">
+      <h2>O que eu tenho feito agora?</h2>
+      <p> Estou tendo acompanhamento individual com um Engenheiro de Software Sênior, conduzido totalmente em inglês, com foco em Python completo, Programação Orientada a Objetos, boas práticas de código, versionamento com Git/GitHub, SQL, desenvolvimento de APIs, testes de software, automação de tarefas e projetos práticos. Inclui aprendizado de terminologia técnica em inglês e aplicação de metodologias profissionais, me preparando para atuar de forma eficiente em ambientes de desenvolvimento reais. </p> 
+      <p>Além disso, iniciei no mês de Outubro o Bootcamp da LuizaLabs (Back-end com Python) com foco em POO, Fundamentos de APIs REST com FastApi, integração de Banco de Dados Relacionais, Produtividade com IA e Versionamento de Código. Após finalizar esse passo, irei realizar a o plano de carreira do Analista de Dados da Microsoft®.
+    </section>
+
+    <!-- Experiências -->
+    <section id="experiencias">
+      <h2>Experiências Profissionais</h2>
+      <p>Sou uma profissional dedicada com experiência sólida em logística e vendas B2B, tendo atuado em empresas de grande porte como Stone Pagamentos e Valecard. Ao longo da minha trajetória, desenvolvi habilidades em gestão de processos, controle de ativos, planejamento de transporte, análise de dados e otimização de operações. Trabalhei diretamente com CRM (Salesforce, Novavida), inteligência de mercado e lead generation, sempre com foco em soluções eficientes e baseadas em tecnologia. Tenho facilidade em liderar e treinar equipes, garantindo integração e capacitação de novos colaboradores, além de atuar de forma estratégica para tomada de decisões baseadas em dados. Minha experiência multidisciplinar me permite transitar entre operações, vendas e tecnologia, sempre buscando inovação e melhoria contínua nos processos que participo.</p>
+    </section>
+
+    <!-- Contatos -->
+    <section id="contatos">
+      <h2>Contatos</h2>
+      <div class="contatos">
+        <a href="tel:+5534996536908">(34) 99653-6908</a>
+        <a href="mailto:dayanarosalyms@gmail.com">dayanarosalyms@gmail.com</a>
+        <a href="https://github.com/dayanarosalyms" target="_blank">github.com/dayanarosalyms</a>
+        <a href="https://www.linkedin.com/in/dayana-rosaly/" target="_blank">linkedin.com/in/dayana-rosaly</a>
+      </div>
+    </section>
+
+    <section id="curriculo">
+    <h2>Clique na imagem e veja o meu Currículo</h2>
+    <div class="certificado" style="display:flex; justify-content:center;">
+      <a href="Arquivos/curriculo_dayana.pdf" target="_blank">
+        <img src="IMAGENS/dayana.jpg" alt="Meu Currículo">
+      </a>
+    </div>
+    <p> Espero que tenha gostado. Volte sempre! Obrigada! </p>
+</section>
+
+  </main>
+
+  <footer>
+    &copy; 2025 Dayana Rosaly
+  </footer>
+
+  <!-- Script animação scroll -->
+  <script>
+    const certificados = document.querySelectorAll('.certificado-card');
+
+    window.addEventListener('scroll', () => {
+      const windowHeight = window.innerHeight;
+
+      certificados.forEach(cert => {
+        const top = cert.getBoundingClientRect().top;
+        if(top < windowHeight - 100) {
+          cert.classList.add('show');
+        }
+      });
+
+      const scrollY = window.scrollY;
+      if(scrollY < 300) {
+        document.body.style.background = 'linear-gradient(to right,#0B1F3F, #1E3A5F, #00FFF7)';
+      } else if(scrollY < 700) {
+        document.body.style.background = 'linear-gradient(to right,#102A43, #1E3A5F, #8B5CF6)';
+      } else {
+        document.body.style.background = 'linear-gradient(to right,#162447, #1E3A5F, #10B981)';
+      }
+    });
+  </script>
+
+</body>
+</html>
